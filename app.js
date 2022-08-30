@@ -1,9 +1,18 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 const feedRoutes = require("./routes/feed");
 
 const app = express();
+
+const MONGODB_URI =
+  "mongodb+srv://abedo:Abedo2022@cluster0.5t4ke.mongodb.net/mern-fullstack-practice?retryWrites=true&w=majority";
+
+const mongodbOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 
 // app.use(bodyParser.urlencoded()); // x-www-form-urlencoded <form>
 app.use(bodyParser.json()); // application/json
@@ -20,4 +29,9 @@ app.use((req, res, next) => {
 
 app.use("/feed", feedRoutes);
 
-app.listen(8080);
+mongoose
+  .connect(MONGODB_URI, mongodbOptions)
+  .then((result) => {
+    app.listen(8080);
+  })
+  .catch((err) => console.log(err));
