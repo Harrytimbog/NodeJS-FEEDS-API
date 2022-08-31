@@ -5,16 +5,18 @@ const authController = require("../controllers/auth");
 
 const router = express.Router();
 
-router(
+router.put(
   "/signup",
   [
     body("email")
       .isEmail()
-      .withMessage("Please enter a valid email")
+      .withMessage("Please enter a valid email.")
       .custom((value, { req }) => {
         return User.findOne({ email: value }).then((userDoc) => {
           if (userDoc) {
-            return Promise.reject("Email address already exists!");
+            return Promise.reject(
+              "Email exists already, please pick a different one."
+            );
           }
         });
       })
