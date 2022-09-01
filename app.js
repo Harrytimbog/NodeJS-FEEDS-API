@@ -4,14 +4,14 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
+require("dotenv").config();
 
 const feedRoutes = require("./routes/feed");
 const authRoutes = require("./routes/auth");
 
 const app = express();
 
-const MONGODB_URI =
-  "mongodb+srv://abedo:Abedo2022@cluster0.5t4ke.mongodb.net/mern-fullstack-practice?retryWrites=true&w=majority";
+const MONGODB_URI = process.env.MONGODB_URI;
 
 const mongodbOptions = {
   useNewUrlParser: true,
